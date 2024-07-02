@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Start = () => {
   const [language, setLanguage] = useState('English');
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
@@ -14,17 +16,18 @@ const Start = () => {
 
   const handleSubmit = () => {
     console.log('Order Started by', name);
-    // Add your form submission logic here
+    // Navigate to /home
+    navigate('/home');
   };
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-white ">
+    <div className="flex flex-col items-center justify-between min-h-screen bg-white">
       <div className="w-full max-w-80 mx-auto flex flex-col items-center justify-center h-1/2 md:max-w-md">
         <div className="w-full mt-2 mb-8">
-          <h1 className="text-2xl font-bold mb-2 text-black ">
+          <h1 className="text-2xl mb-2 text-black">
             {language === 'English' ? 'Tarim Garden' : '塔里木花园'}
           </h1>
-          <p className="text-lg mb-4 text-black ">
+          <p className="text-lg mb-4 text-black">
             {language === 'English' ? 'Your Table Number is' : '您的桌号是'}{' '}
             <span className="text-red-600">1</span>
           </p>
