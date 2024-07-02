@@ -76,7 +76,7 @@ const Nav = () => {
           <hr className="my-4 border-gray-300" />
           <div className="flex items-center mb-4">
             <AiOutlineGlobal className="h-6 w-6 text-gray-800 mr-2" /> {/* Globe icon */}
-            <span className="text-gray-800 mr-2">Languages:</span> {/* Add space and colon after Languages */}
+            <span className="text-gray-800 mr-2">Language </span> {/* Add space and colon after Languages */}
             <div className="ml-auto flex">
               <button
                 className={`px-2 py-1 rounded-full mr-1 ${activeLanguage === 'english' ? 'bg-black text-white' : 'bg-gray-300'}`}
