@@ -162,7 +162,7 @@ const ProductComponent = () => {
         {filteredProducts.map(product => (
           <div key={product.id} className="flex justify-between items-center mb-4 p-4 border-b">
             <div className="flex items-center">
-              <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
+              <img src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg" alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
               <div>
                 <h6 className="text-sm font-bold truncate w-40" style={{ fontSize: '12px' }}>{product.title}</h6>
                 <p className="text-gray-700" style={{ fontSize: '12px' }}>${product.price}</p>
@@ -227,7 +227,10 @@ const ProductComponent = () => {
               <FaTimes className="w-7 h-7" /> {/* Replaced SVG with FaTimes */}
             </button>
             <div className="text-center">
-              <img src={selectedProduct.thumbnail} alt={selectedProduct.title} className="w-64 h-64 rounded-full mx-auto mb-4" />
+              <img 
+              src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg"
+              
+              className="w-64 h-64 rounded-full mx-auto mb-4" />
               <h2 className="text-lg font-bold">{selectedProduct.title}</h2>
               <p className="text-gray-700 mb-2">${selectedProduct.price}</p>
               <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
@@ -280,7 +283,7 @@ const ProductComponent = () => {
               {Object.values(cartItems).map((product) => (
                 <div key={product.id} className="flex justify-between items-center mb-4 p-4 border-b">
                   <div className="flex items-center">
-                    <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
+                    <img src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg" alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
                     <div>
                       <h6 className="text-sm font-bold truncate w-40">{product.title}</h6>
                       <p className="text-gray-700">${product.price}</p>
