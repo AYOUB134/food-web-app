@@ -29,7 +29,7 @@ const Start = () => {
           </h1>
           <p className="text-lg mb-4 text-black">
             {language === 'English' ? 'Your Table Number is' : '您的桌号是'}{' '}
-            <span className="text-red-600">1</span>
+           <span  style={{ backgroundColor: '#e00051' }}></span>
           </p>
         </div>
         <div className="w-full text-left mb-2">
@@ -60,7 +60,8 @@ const Start = () => {
         />
         <button
           onClick={handleSubmit}
-          className="bg-pink-500 text-white px-6 py-2 rounded-3xl w-full"
+          className=" text-white px-6 py-2 rounded-3xl w-full"
+          style={{ backgroundColor: '#e00051' }}
         >
           {language === 'English' ? 'Start Ordering' : '开始点餐'}
         </button>

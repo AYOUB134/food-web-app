@@ -26,14 +26,15 @@
   color: rgb(112, 76, 182);
 }
 
-@keyframes App-logo-float {
-  0% {
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTimes, FaSearch } from 'react-icons/fa'; // Importing the cross and search icons from react-icons
 
 const ProductComponent = () => {
   const [products, setProducts] = useState([]);
@@ -7,7 +8,7 @@ const ProductComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showAllCategories, setShowAllCategories] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showCart, setShowCart] = useState(false);
 
@@ -39,6 +40,7 @@ const ProductComponent = () => {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     filterProducts(searchQuery, category);
+    setShowAllCategories(false); // Close modal on category selection
   };
 
   const toggleShowAllCategories = () => {
@@ -57,7 +59,27 @@ const ProductComponent = () => {
   };
 
   const handleAddToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    setCartItems(prevCartItems => {
+      const newCartItems = { ...prevCartItems };
+      if (newCartItems[product.id]) {
+        newCartItems[product.id].quantity += 1;
+      } else {
+        newCartItems[product.id] = { ...product, quantity: 1 };
+      }
+      return newCartItems;
+    });
+  };
+
+  const handleRemoveFromCart = (product) => {
+    setCartItems(prevCartItems => {
+      const newCartItems = { ...prevCartItems };
+      if (newCartItems[product.id] && newCartItems[product.id].quantity > 1) {
+        newCartItems[product.id].quantity -= 1;
+      } else {
+        delete newCartItems[product.id];
+      }
+      return newCartItems;
+    });
   };
 
   const handleShowDetails = (product) => {
@@ -76,13 +98,15 @@ const ProductComponent = () => {
     <div className="relative p-4">
       <div className="w-full mb-2 -mt-3 flex items-center">
         <div className="relative w-full">
+          <FaSearch className="absolute left-3 top-1.5 text-gray-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
-            className="w-full pl-2 p-1.5 border border-gray-300 rounded-full -mt-5"
+            className="w-full pl-10 p-1.5 border border-gray-300 rounded-full -mt-5"
             placeholder="Search Dish"
-           style={{backgroundColor:'#f5f5f5', fontSize:'12px'}} />
+            style={{ backgroundColor: '#f5f5f5', fontSize: '12px', outline: 'none' }} // Removed black border
+          />
         </div>
       </div>
       <div className="flex items-center justify-end mb-4 overflow-x-auto">
@@ -92,7 +116,7 @@ const ProductComponent = () => {
               key={category}
               className={`px-4 py-2 rounded text-left ${selectedCategory === category ? 'text-white bg-black' : 'bg-gray-200'} ml-2`}
               onClick={() => handleCategoryClick(category)}
-              style={{fontSize:'12px'}}
+              style={{ fontSize: '12px' }}
             >
               {category}
             </button>
@@ -101,7 +125,7 @@ const ProductComponent = () => {
         <button
           className="px-4 py-2 rounded bg-gray-200 ml-2"
           onClick={toggleShowAllCategories}
-          style={{fontSize:'12px'}}
+          style={{ fontSize: '12px' }}
         >
           All
         </button>
@@ -111,16 +135,10 @@ const ProductComponent = () => {
           <div className="bg-white rounded-t-lg shadow-lg max-w-screen w-full md:max-w-md" style={{ maxHeight: '80vh' }}>
             <div className="p-4 flex justify-between items-center border-b">
               <button
-                className="text-gray-600 hover:text-gray-800 focus:outline-none absolute top-2 left-2"
+                className="text-gray-600 hover:text-gray-800 focus:outline-none"
                 onClick={toggleShowAllCategories}
               >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <FaTimes className="w-7 h-7" /> {/* Replaced SVG with FaTimes */}
               </button>
               <h3 className="text-lg font-bold text-center flex-1">Categories</h3>
             </div>
@@ -140,108 +158,151 @@ const ProductComponent = () => {
           </div>
         </div>
       )}
-
-
-
       <div>
         {filteredProducts.map(product => (
           <div key={product.id} className="flex justify-between items-center mb-4 p-4 border-b">
-          <div className="flex items-center">
-              {/* <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border " /> */}
+            <div className="flex items-center">
               <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
-
               <div>
-                <h6 className="text-sm font-bold truncate w-40" style={{fontSize:'12px'}}>{product.title}</h6>
-                <p className="text-gray-700"  style={{ fontSize:'12px'}}>${product.price}</p>
+                <h6 className="text-sm font-bold truncate w-40" style={{ fontSize: '12px' }}>{product.title}</h6>
+                <p className="text-gray-700" style={{ fontSize: '12px' }}>${product.price}</p>
                 <button
                   className="underline text-blue-500"
                   onClick={() => handleShowDetails(product)}
-                  style={{color:'black' , fontSize:'12px'}}
+                  style={{ color: 'black', fontSize: '12px' }}
                 >
                   Detail
                 </button>
               </div>
             </div>
-            <button
-              className="text-white rounded-full w-8 h-8 flex items-center justify-center"
-              onClick={() => handleAddToCart(product)} style={{ backgroundColor: '#e00051' }}
-            >
-              +
-            </button>
+            <div className="flex items-center mt-5">
+              {cartItems[product.id] ? (
+                <>
+                  <button
+                    className="text-white bg-red-500 rounded-full w-7 h-7 flex items-center justify-center mr-0"
+                    onClick={() => handleRemoveFromCart(product)}
+                    style={{ backgroundColor: '#e00051' }}
+                  >
+                    -
+                  </button>
+                  <span className="text-sm text-black bg-white text-center w-7 h-7 flex items-center justify-center rounded-full border border-b-gray-500">{cartItems[product.id].quantity}</span>
+                  <button
+                    className="text-white bg-green-500 rounded-full w-7 h-7 flex items-center justify-center ml-0"
+                    onClick={() => handleAddToCart(product)}
+                    style={{ backgroundColor: '#e00051' }}
+                  >
+                    +
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="text-white bg-red-500 rounded-full w-7 h-7 flex items-center justify-center"
+                  onClick={() => handleAddToCart(product)}
+                  style={{ backgroundColor: '#e00051' }}
+                >
+                  +
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>
-
-
-
-
-
-
-      {cartItems.length > 0 && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 text-white py-2 px-4 rounded-full flex justify-between items-center transition-transform  duration-300" style={{ backgroundColor: '#e00051' }}>
-          <div className="relative mb-2">
-            <span className="absolute left-0 top-0 -mt-2 flex items-center justify-center w-6 h-6 bg-white text-red-500 rounded-full">
-              {cartItems.length}
+      {Object.keys(cartItems).length > 0 && (
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full text-white py-2 px-4 rounded-t-lg flex justify-between items-center transition-transform duration-300" style={{ backgroundColor: '#e00051' }}>
+          <div className="relative">
+            <span className="absolute left-0 top-0 -mt-3 flex items-center justify-center w-7 h-7 bg-white text-red-500 rounded-full">
+              {Object.keys(cartItems).length}
             </span>
           </div>
           <span className="mx-auto" onClick={toggleShowCart}>View Cart</span>
         </div>
       )}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-4 relative">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50 animate-slide-up">
+          <div className="bg-white rounded-t-lg shadow-lg max-w-md w-full p-4 relative">
             <button
               className="absolute top-2 left-2 text-gray-600 hover:text-gray-800 focus:outline-none"
               onClick={handleCloseDetails}
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <FaTimes className="w-7 h-7" /> {/* Replaced SVG with FaTimes */}
             </button>
             <div className="text-center">
-              <img src={selectedProduct.thumbnail} alt={selectedProduct.title} className="w-32 h-32 rounded-full mx-auto mb-4" />
+              <img src={selectedProduct.thumbnail} alt={selectedProduct.title} className="w-64 h-64 rounded-full mx-auto mb-4" />
               <h2 className="text-lg font-bold">{selectedProduct.title}</h2>
               <p className="text-gray-700 mb-2">${selectedProduct.price}</p>
-              <p className="text-gray-600">{selectedProduct.description}</p>
+              <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
+              <div className="flex justify-center mt-4">
+                {cartItems[selectedProduct.id] ? (
+                  <>
+                    <button
+                      className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center mr-2"
+                      onClick={() => handleRemoveFromCart(selectedProduct)}
+                      style={{ backgroundColor: '#e00051' }}
+                    >
+                      -
+                    </button>
+                    <span className="text-sm text-black bg-white text-center w-8 h-8 flex items-center justify-center rounded-full border border-b-gray-500">
+                      {cartItems[selectedProduct.id].quantity}
+                    </span>
+                    <button
+                      className="text-white bg-green-500 rounded-full w-8 h-8 flex items-center justify-center ml-2"
+                      onClick={() => handleAddToCart(selectedProduct)}
+                      style={{ backgroundColor: '#e00051' }}
+                    >
+                      +
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center"
+                    onClick={() => handleAddToCart(selectedProduct)}
+                    style={{ backgroundColor: '#e00051' }}
+                  >
+                    +
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
       )}
       {showCart && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-4 overflow-y-auto relative" style={{ maxHeight: '80vh' }}>
+        <div className="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50">
+          <div className="bg-white rounded-t-lg shadow-lg max-w-md w-full p-4 overflow-y-auto relative" style={{ maxHeight: '80vh' }}>
             <button
               className="absolute top-2 left-2 text-gray-600 hover:text-gray-800 focus:outline-none"
               onClick={toggleShowCart}
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M3.293 3.293a1 1 0 011.414 0L10 8.586l5.293-5.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <FaTimes className="w-7 h-7" /> {/* Replaced SVG with FaTimes */}
             </button>
             <div className="text-center">
               <h2 className="text-lg font-bold mb-4">Cart Items</h2>
-              {cartItems.map((product) => (
-                <div key={product.id} className="flex justify-between items-center mb-4 p-4 border border-gray-200 rounded-lg">
+              {Object.values(cartItems).map((product) => (
+                <div key={product.id} className="flex justify-between items-center mb-4 p-4 border-b">
                   <div className="flex items-center">
-                    <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded-full mr-4" />
+                    <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
                     <div>
                       <h6 className="text-sm font-bold truncate w-40">{product.title}</h6>
                       <p className="text-gray-700">${product.price}</p>
                     </div>
                   </div>
-                  <button
-                    className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center" style={{ backgroundColor: '#e00051' }}
-                  >
-                    +
-                  </button>
+                  <div className="flex items-center mt-5">
+                    <button
+                      className="text-white rounded-full w-8 h-8 flex items-center justify-center mr-0"
+                      onClick={() => handleRemoveFromCart(product)}
+                      style={{ backgroundColor: '#e00051' }}
+                    >
+                      -
+                    </button>
+                    <span className="text-sm text-black bg-white text-center w-7 h-7 flex items-center justify-center rounded-full border border-b-gray-500">{product.quantity}</span>
+                    <button
+                      className="text-white rounded-full w-8 h-8 flex items-center justify-center ml-0"
+                      onClick={() => handleAddToCart(product)}
+                      style={{ backgroundColor: '#e00051' }}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
