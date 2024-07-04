@@ -74,15 +74,15 @@ const ProductComponent = () => {
 
   return (
     <div className="relative p-4">
-      <div className="w-full mb-4 flex items-center">
+      <div className="w-full mb-2 -mt-3 flex items-center">
         <div className="relative w-full">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
-            className="w-full pl-10 p-2 border border-gray-300 rounded-full"
+            className="w-full pl-2 p-1.5 border border-gray-300 rounded-full -mt-5"
             placeholder="Search Dish"
-          />
+           style={{backgroundColor:'#f5f5f5', fontSize:'12px'}} />
         </div>
       </div>
       <div className="flex items-center justify-end mb-4 overflow-x-auto">
@@ -90,16 +90,18 @@ const ProductComponent = () => {
           {categories.map(category => (
             <button
               key={category}
-              className={`px-4 py-2 rounded-full text-left ${selectedCategory === category ? 'text-white bg-blue-500' : 'bg-gray-200'} ml-2`}
+              className={`px-4 py-2 rounded text-left ${selectedCategory === category ? 'text-white bg-black' : 'bg-gray-200'} ml-2`}
               onClick={() => handleCategoryClick(category)}
+              style={{fontSize:'12px'}}
             >
               {category}
             </button>
           ))}
         </div>
         <button
-          className="px-4 py-2 rounded-full bg-gray-200 ml-2"
+          className="px-4 py-2 rounded bg-gray-200 ml-2"
           onClick={toggleShowAllCategories}
+          style={{fontSize:'12px'}}
         >
           All
         </button>
@@ -138,33 +140,45 @@ const ProductComponent = () => {
           </div>
         </div>
       )}
+
+
+
       <div>
         {filteredProducts.map(product => (
-          <div key={product.id} className="flex justify-between items-center mb-4 p-4 border border-gray-200 rounded-lg">
-            <div className="flex items-center">
-              <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded-full mr-4" />
+          <div key={product.id} className="flex justify-between items-center mb-4 p-4 border-b">
+          <div className="flex items-center">
+              {/* <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border " /> */}
+              <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded mr-4 border border-gray-200" />
+
               <div>
-                <h2 className="text-sm font-bold truncate w-40">{product.title}</h2>
-                <p className="text-gray-700">${product.price}</p>
+                <h6 className="text-sm font-bold truncate w-40" style={{fontSize:'12px'}}>{product.title}</h6>
+                <p className="text-gray-700"  style={{ fontSize:'12px'}}>${product.price}</p>
                 <button
                   className="underline text-blue-500"
                   onClick={() => handleShowDetails(product)}
+                  style={{color:'black' , fontSize:'12px'}}
                 >
                   Detail
                 </button>
               </div>
             </div>
             <button
-              className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
-              onClick={() => handleAddToCart(product)}
+              className="text-white rounded-full w-8 h-8 flex items-center justify-center"
+              onClick={() => handleAddToCart(product)} style={{ backgroundColor: '#e00051' }}
             >
               +
             </button>
           </div>
         ))}
       </div>
+
+
+
+
+
+
       {cartItems.length > 0 && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 bg-red-500 text-white py-2 px-4 rounded-full flex justify-between items-center transition-transform transform duration-300">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 text-white py-2 px-4 rounded-full flex justify-between items-center transition-transform  duration-300" style={{ backgroundColor: '#e00051' }}>
           <div className="relative mb-2">
             <span className="absolute left-0 top-0 -mt-2 flex items-center justify-center w-6 h-6 bg-white text-red-500 rounded-full">
               {cartItems.length}
@@ -219,12 +233,12 @@ const ProductComponent = () => {
                   <div className="flex items-center">
                     <img src={product.thumbnail} alt={product.title} className="w-16 h-16 rounded-full mr-4" />
                     <div>
-                      <h2 className="text-sm font-bold truncate w-40">{product.title}</h2>
+                      <h6 className="text-sm font-bold truncate w-40">{product.title}</h6>
                       <p className="text-gray-700">${product.price}</p>
                     </div>
                   </div>
                   <button
-                    className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
+                    className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center" style={{ backgroundColor: '#e00051' }}
                   >
                     +
                   </button>

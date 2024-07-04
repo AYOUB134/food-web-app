@@ -25,35 +25,38 @@ const Nav = () => {
 
   return (
     <div className="static top-0 right-0 w-full bg-white z-50"> {/* Changed to position static */}
-      <div className="container mx-auto flex items-center justify-between py-4 px-6 md:px-12 relative">
+      <div className="container mx-auto flex items-center justify-between py-2 px-3 md:px-12 relative">
         <div className="flex items-center">
-          <div className="text-gray-800 mr-2 text-sm">
-            Ayoub {/* Replace with dynamic customer name */}
+          <div className="text-gray-800 mr-2 text-sm font-bold" style={{fontSize:'12px'}}>
+            Tarim Garden {/* Replace with dynamic customer name */}
           </div>
-          <div className="bg-red-800 text-white rounded-full h-5 w-5 flex items-center justify-center">
+          <div className=" text-white rounded-full h-3 w-3 flex items-center justify-center" 
+          style={{fontSize:'13px', color:'#e00051', backgroundColor:'#FFEDF3'}}>
             1 {/* Replace with dynamic table number */}
           </div>
         </div>
         <div className="flex items-center">
           <button
             onClick={toggleModal}
-            className="bg-gray-300 text-white px-2 py-2 rounded-full mr-4 md:hidden text-sm" // Adjusted padding and font size
-            style={{ backgroundColor: '#D1D5DB', color: '#fff' }} // Set bg color same as the hamburger menu button
+            className="bg-gray-300 text-white px-2 py-1.5 rounded-full mr-2 md:hidden text-sm font-bold" // Adjusted padding and font size
+            style={{ backgroundColor: '#f5f5f5', color: '#929ec5', fontSize:'10px' }}
+           
+             // Set bg color same as the hamburger menu button
           >
-            My Orders
+            My Order
           </button>
           <button
             onClick={toggleMenu}
-            className="md:hidden text-gray-800 focus:outline-none rounded-full bg-gray-300 p-2"
+            className="md:hidden text-gray-800 focus:outline-none rounded-full p-2" style={{backgroundColor: '#f5f5f5'}}
           >
-            {menuOpen ? <FaTimes className="text-white" /> : <FaBars className="text-white" />}
+            {menuOpen ? <FaTimes style={{ color:'#b3b3bc'}} /> : <FaBars style={{color:'#b3b3bc'}}/>}
           </button>
           <button
             className="hidden md:block bg-gray-300 text-white px-4 py-2 rounded-full mr-4 text-sm" // Adjusted font size
             onClick={toggleModal}
             style={{ backgroundColor: '#D1D5DB', color: '#fff' }} // Set bg color same as the hamburger menu button
           >
-            My Orders
+            My Order
           </button>
         </div>
       </div>
@@ -69,9 +72,9 @@ const Nav = () => {
               <FaTimes className="text-white" />
             </button>
           </div>
-          <p className="text-gray-600 mb-4">Welcome to Join as Member for Free</p>
-          <button className="bg-red-500 text-white px-4 py-2 rounded-full mb-4 w-full">
-            Sign Up
+          <p className="text-gray-600 mb-7">Welcome to Join as Member for Free</p>
+          <button className=" text-white px-4 py-1.5 rounded-full mb-4  w-full" style={{backgroundColor:'#e00051'}}>
+            Sign In
           </button>
           <hr className="my-4 border-gray-300" />
           <div className="flex items-center mb-4">
