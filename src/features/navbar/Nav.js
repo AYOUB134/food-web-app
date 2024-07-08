@@ -24,7 +24,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="static top-0 right-0 w-full bg-white z-50"> {/* Changed to position static */}
+    <div className="fixed top-0 right-0 w-full bg-white z-50"> {/* Changed to position fixed */}
       <div className="container mx-auto flex items-center justify-between py-2 px-3 md:px-12 relative">
         <div className="flex items-center">
           <div className="text-gray-800 mr-2 text-sm font-bold" style={{fontSize:'12px'}}>
