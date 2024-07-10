@@ -16,9 +16,10 @@ const Start = () => {
 
   const handleSubmit = () => {
     console.log('Order Started by', name);
-    // Navigate to /home
     navigate('/home');
   };
+
+  const isNameEntered = name.trim() !== '';
 
   return (
     <div className="flex flex-col items-center justify-between min-h-screen bg-white">
@@ -29,7 +30,12 @@ const Start = () => {
           </h1>
           <p className="text-lg mb-4 text-black">
             {language === 'English' ? 'Your Table Number is' : '您的桌号是'}{' '}
-           <span  style={{ backgroundColor: '#e00051' }}></span>
+            <span
+              className="text-white rounded-full px-2"
+              style={{ backgroundColor: '#FFFFFF', color: '#e00051' }}
+            >
+              1
+            </span>
           </p>
         </div>
         <div className="w-full text-left mb-2">
@@ -56,12 +62,12 @@ const Start = () => {
           placeholder={language === 'English' ? 'Your Name*' : '您的名字*'}
           value={name}
           onChange={handleNameChange}
-          className="border border-gray-300 rounded-3xl p-2 mb-6 w-full"
+          className="border border-gray-300   rounded-3xl p-2 mb-6 w-full text-lg" style={{backgroundColor : "#e5e7eb"}}
         />
         <button
           onClick={handleSubmit}
-          className=" text-white px-6 py-2 rounded-3xl w-full"
-          style={{ backgroundColor: '#e00051' }}
+          className={`text-white px-6 py-2 rounded-3xl w-full ${isNameEntered ? 'bg-red-600' : 'bg-red-200'}`}
+          disabled={!isNameEntered}
         >
           {language === 'English' ? 'Start Ordering' : '开始点餐'}
         </button>
