@@ -178,145 +178,149 @@ const ProductComponent = () => {
 
         <div>
         {filteredProducts.map(product => {
-      const isFirstProduct = firstProductsOfCategories[product.category] === product.id;
-      return (
-        <div key={product.id} className={`flex justify-between items-center mb-4 p-4 border-b ${isFirstProduct ? 'relative' : ''}`}>
-          {isFirstProduct && (
-            <h1 className="absolute -top-6 left-0 p-4 font-bold mb-5">
-              <span className="text-x2 text-bold font-bold pb-5" style={{ fontSize: '20px' }}>
-                {product.category}
-              </span>
-            </h1>
-          )}
-          <div className={`flex items-center mt-5 ${isFirstProduct ? 'relative w-90' : ''}`}>
-            <img
-              src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg"
-              alt={product.title}
-              className={`rounded mr-4 border border-gray-200 ${isFirstProduct ? 'w-90 h-auto' : 'w-16 h-16'}`}
-            />
-            {!isFirstProduct && (
-              <div>
-                <h6 className="text-sm font-bold truncate" style={{ fontSize: '12px' }}>{product.title}</h6>
-                <p className="text-gray-700" style={{ fontSize: '12px' }}>${product.price}</p>
-                <button
-                  className="text-blue-500 underline ml-2 focus:outline-none block"
-                  onClick={() => handleShowDetails(product)}
-                  style={{ fontSize: '12px' }}
-                >
-                  Detail
-                </button>
-              </div>
-            )}
-            {isFirstProduct && (
-              <div className="absolute top-0 left-0 p-2">
-                <h6 className="text-sm font-bold truncate" style={{ fontSize: '12px' }}>{product.title}</h6>
-                <p className="text-gray-700" style={{ fontSize: '12px' }}>${product.price}</p>
-                <button
-                  className="text-blue-500 underline ml-2 focus:outline-none block"
-                  onClick={() => handleShowDetails(product)}
-                  style={{ fontSize: '12px' }}
-                >
-                  Detail
-                </button>
-              </div>
-            )}
-          </div>
-          <div className={`flex items-center mt-5 ${isFirstProduct ? 'absolute bottom-2 right-2' : ''}`}>
-            {cartItems[product.id] && cartItems[product.id].quantity > 0 && (
-              <button
-                className={`text-white bg-red-500 rounded-full w-7 h-7 flex items-center justify-center  ${isFirstProduct ? ' mb-8' : 'mr-2'}`}
-                onClick={() => handleRemoveFromCart(product)}
-                style={{ backgroundColor: '#e00051', fontSize: '12px' }}
-              >
-                -
-              </button>
-            )}
-            {cartItems[product.id] && cartItems[product.id].quantity > 0 && (
-              <span className="text-sm text-black mb-8 bg-white text-center w-7 h-7 flex items-center justify-center rounded-full border border-b-gray-500">
-                {cartItems[product.id].quantity}
-              </span>
-            )}
+  const isFirstProduct = firstProductsOfCategories[product.category] === product.id;
+  return (
+    <div key={product.id} className={`flex justify-between items-center mb-4 p-4 border-b ${isFirstProduct ? 'mt-10 relative' : ''}`}>
+      {isFirstProduct && (
+        <h1 className="absolute -top-6 left-0 p-4 font-bold mb-5">
+          <span className="text-x2 text-bold font-bold pb-5" style={{ fontSize: '20px' }}>
+            {product.category}
+          </span>
+        </h1>
+      )}
+      <div className={`flex items-center mt-1 ${isFirstProduct ? 'relative w-90' : ''}`}>
+        <img
+          src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg"
+          alt={product.title}
+          className={`rounded mr-4 border border-gray-200 ${isFirstProduct ? 'w-100 h-100' : 'w-20 h-20'}`}
+          style={isFirstProduct ? { width: '100%', height: '100%' } : {}}
+        />
+        {!isFirstProduct && (
+          <div>
+            <h6 className="text-sm font-bold truncate " style={{ fontSize: '13px' }}>{product.title}</h6>
+            <p className="text-gray-700" style={{ fontSize: '13px' }}>${product.price}</p>
             <button
-              className={`text-white bg-green-500 rounded-full w-7 h-7 flex items-center justify-center ml-2 ${isFirstProduct ? 'mr-8 mb-8' : 'ml-2'}`}
-              onClick={() => handleAddToCart(product)}
-              style={{ backgroundColor: '#e00051', fontSize: '12px' }}
+              className="text-black underline focus:outline-none block"
+              onClick={() => handleShowDetails(product)}
+              style={{ fontSize: '13px' }}
             >
-              +
+              Detail
             </button>
           </div>
-        </div>
-      );
-    })}
-
-
+        )}
+        {isFirstProduct && (
+          <div className="absolute top-0 left-0 p-2 text-white">
+            <h6 className="text-sm font-bold truncate text-white" style={{ fontSize: '16px' }}>{product.title}</h6>
+            <p className=" text-white" style={{ fontSize: '16px' }}>${product.price}</p>
+            <button
+              className=" underline  focus:outline-none block text-white"
+              onClick={() => handleShowDetails(product)}
+              style={{ fontSize: '16px' }}
+            >
+              Detail
+            </button>
+          </div>
+        )}
+      </div>
+      <div className={`flex items-center mt-5 ${isFirstProduct ? 'absolute bottom-2 right-2' : ''} ${isFirstProduct ? 'mb-8' : ''}`}>
+        {cartItems[product.id] && cartItems[product.id].quantity > 0 && (
+          <button
+            className={`text-white bg-red-500 rounded-full w-9 h-9 flex items-center justify-center ${isFirstProduct ? '' : 'mr-2 '} ${isFirstProduct ? 'mb-0' : ''}`}
+            onClick={() => handleRemoveFromCart(product)}
+            style={{ backgroundColor: '#e00051', fontSize: '12px' }}
+          >
+            -
+          </button>
+        )}
+        {cartItems[product.id] && cartItems[product.id].quantity > 0 && (
+          <span className={`text-sm text-black bg-white text-center w-9 h-9 flex items-center justify-center rounded-full border border-b-gray-500 ${isFirstProduct ? 'ml-2' : ''}`}>
+            {cartItems[product.id].quantity}
+          </span>
+        )}
+        <button
+          className={`text-white bg-green-500 rounded-full w-9 h-9 flex items-center justify-center ml-2 ${isFirstProduct ? 'mr-4' : 'ml-0'} ${isFirstProduct ? 'mb-0' : ''}`}
+          onClick={() => handleAddToCart(product)}
+          style={{ backgroundColor: '#e00051', fontSize: '12px' }}
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+})}
 
         </div>
 
         {Object.keys(cartItems).length > 0 && (
-          <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full text-white py-2 px-4 rounded-t-lg flex justify-between items-center transition-transform duration-300" style={{ backgroundColor: '#e00051' }}>
-            <div className="relative">
-              <span className="absolute left-0 top-0 -mt-3 flex items-center justify-center w-7 h-7 bg-white text-red-500 rounded-full">
-                {Object.keys(cartItems).length}
-              </span>
-            </div>
-            <span className="mx-auto" onClick={toggleShowCart}>View Cart</span>
-          </div>
-        )}
+  <div
+    className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-11/12 mb-5 text-white py-2 px-4 rounded-t-lg flex justify-between items-center transition-transform duration-300"
+    style={{ backgroundColor: '#e00051' }}
+  >
+    <div className="relative">
+      <span className="absolute left-0 top-0 -mt-3 flex items-center justify-center w-7 h-7 bg-white text-red-500 rounded-full">
+        {Object.keys(cartItems).length}
+      </span>
+    </div>
+    <span className="mx-auto" onClick={toggleShowCart}>View Cart</span>
+  </div>
+)}
 
-        {selectedProduct && (
-          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50 animate-slide-up">
-            <div className="bg-white rounded-t-lg shadow-lg max-w-md w-full p-4 relative">
+
+{selectedProduct && (
+  <div className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-50 animate-slide-up">
+    <div className="bg-white rounded-t-lg shadow-lg max-w-md w-full p-5 relative">
+      <button
+        className="absolute top-2 left-2 text-gray-600 bg-white ml-5 mt-5 rounded-full hover:text-gray-800 focus:outline-none"
+        onClick={handleCloseDetails}
+      >
+        <FaTimes className="w-7 h-7" />
+      </button>
+      <div>
+        <img
+          src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg"
+          alt={selectedProduct.title}
+          className="w-full mx-auto mb-4"
+          style={{ width: '100%' }}
+        />
+        <h2 className="text-lg font-bold">{selectedProduct.title}</h2>
+        <p className="text-gray-700 mb-2">${selectedProduct.price}</p>
+        <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
+        <div className="flex justify-end mt-4">
+          {cartItems[selectedProduct.id] ? (
+            <>
               <button
-                className="absolute top-2 left-2 text-gray-600 hover:text-gray-800 focus:outline-none"
-                onClick={handleCloseDetails}
+                className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center mr-2"
+                onClick={() => handleRemoveFromCart(selectedProduct)}
+                style={{ backgroundColor: '#e00051' }}
               >
-                <FaTimes className="w-7 h-7" />
+                -
               </button>
-              <div className="text-center">
-                <img
-                  src="https://api.chowbus.com/api/v2/image_proxy/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGcvUWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--31c201caecc355c8996105144613917432bddc54/%E5%9C%9F%E8%B1%86%E4%B8%9D%E7%89%9B%E8%82%89%E7%9B%96%E6%B5%87%E9%A5%AD.jpeg"
-                  alt={selectedProduct.title}
-                  className="w-full rounded-full mx-auto mb-4"
-                  style={{ width: '90%' }}
-                />
-                <h2 className="text-lg font-bold">{selectedProduct.title}</h2>
-                <p className="text-gray-700 mb-2">${selectedProduct.price}</p>
-                <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
-                <div className="flex justify-center mt-4">
-                  {cartItems[selectedProduct.id] ? (
-                    <>
-                      <button
-                        className="text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center mr-2"
-                        onClick={() => handleRemoveFromCart(selectedProduct)}
-                        style={{ backgroundColor: '#e00051' }}
-                      >
-                        -
-                      </button>
-                      <span className="text-sm text-black bg-white text-center w-8 h-8 flex items-center justify-center rounded-full border border-b-gray-500">
-                        {cartItems[selectedProduct.id].quantity}
-                      </span>
-                      <button
-                        className="text-white bg-green-500 rounded-full w-8 h-8 flex items-center justify-center ml-2"
-                        onClick={() => handleAddToCart(selectedProduct)}
-                        style={{ backgroundColor: '#e00051' }}
-                      >
-                        +
-                      </button>
-                    </>
-                  ) : (
-                    <button
-                      className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center"
-                      onClick={() => handleAddToCart(selectedProduct)}
-                      style={{ backgroundColor: '#e00051' }}
-                    >
-                      +
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+              <span className="text-sm text-black bg-white text-center w-10 h-10 flex items-center justify-center rounded-full border border-b-gray-500">
+                {cartItems[selectedProduct.id].quantity}
+              </span>
+              <button
+                className="text-white bg-green-500 rounded-full w-10 h-10 flex items-center justify-center ml-2"
+                onClick={() => handleAddToCart(selectedProduct)}
+                style={{ backgroundColor: '#e00051' }}
+              >
+                +
+              </button>
+            </>
+          ) : (
+            <button
+              className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center"
+              onClick={() => handleAddToCart(selectedProduct)}
+              style={{ backgroundColor: '#e00051' }}
+            >
+              +
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
 
         {showCart && (
           <div className="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50">
