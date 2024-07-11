@@ -120,7 +120,8 @@ const ProductComponent = () => {
               onChange={handleSearchChange}
               className="w-full pl-10 p-1.5 border border-gray-300 rounded-full"
               placeholder="Search Dish"
-              style={{ backgroundColor: '#f5f5f5', fontSize: '12px', outline: 'none' }}
+              style={{ backgroundColor: "#e5e7eb", fontSize: '12px', outline: 'none' , borderColor:"#e5e7eb"}}
+              
             />
           </div>
         </div>
@@ -182,8 +183,8 @@ const ProductComponent = () => {
   return (
     <div key={product.id} className={`flex justify-between items-center mb-4 p-4 border-b ${isFirstProduct ? 'mt-10 relative' : ''}`}>
       {isFirstProduct && (
-        <h1 className="absolute -top-6 left-0 p-4 font-bold mb-5">
-          <span className="text-x2 text-bold font-bold pb-5" style={{ fontSize: '20px' }}>
+        <h1 className="absolute -top-8 left-0 p-4 font-bold ">
+          <span className="text-x2 text-bold font-bold " style={{ fontSize: '20px' }}>
             {product.category}
           </span>
         </h1>
@@ -227,23 +228,27 @@ const ProductComponent = () => {
           <button
             className={`text-white bg-red-500 rounded-full w-9 h-9 flex items-center justify-center ${isFirstProduct ? '' : 'mr-2 '} ${isFirstProduct ? 'mb-0' : ''}`}
             onClick={() => handleRemoveFromCart(product)}
-            style={{ backgroundColor: '#e00051', fontSize: '12px' }}
+            style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
           >
             -
           </button>
         )}
         {cartItems[product.id] && cartItems[product.id].quantity > 0 && (
-          <span className={`text-sm text-black bg-white text-center w-9 h-9 flex items-center justify-center rounded-full border border-b-gray-500 ${isFirstProduct ? 'ml-2' : ''}`}>
+          <span className={`text-sm text-black bg-white text-center w-9 h-9 flex items-center justify-center rounded-full border border-b-gray-500 ${isFirstProduct ? 'ml-2' : ''}`}
+          style={{  fontSize: '20px', lineHeight: '24px', padding: '0'}}
+          >
             {cartItems[product.id].quantity}
           </span>
         )}
-        <button
-          className={`text-white bg-green-500 rounded-full w-9 h-9 flex items-center justify-center ml-2 ${isFirstProduct ? 'mr-4' : 'ml-0'} ${isFirstProduct ? 'mb-0' : ''}`}
-          onClick={() => handleAddToCart(product)}
-          style={{ backgroundColor: '#e00051', fontSize: '12px' }}
-        >
-          +
-        </button>
+     <button
+    className={`text-white rounded-full w-10 h-10 flex items-center justify-center ml-2 ${isFirstProduct ? 'mr-4' : 'ml-0'} ${isFirstProduct ? 'mb-0' : ''}`}
+    onClick={() => handleAddToCart(product)}
+    style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
+  >
+    +
+  </button>
+
+
       </div>
     </div>
   );
@@ -291,7 +296,7 @@ const ProductComponent = () => {
               <button
                 className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center mr-2"
                 onClick={() => handleRemoveFromCart(selectedProduct)}
-                style={{ backgroundColor: '#e00051' }}
+                style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
               >
                 -
               </button>
@@ -301,7 +306,7 @@ const ProductComponent = () => {
               <button
                 className="text-white bg-green-500 rounded-full w-10 h-10 flex items-center justify-center ml-2"
                 onClick={() => handleAddToCart(selectedProduct)}
-                style={{ backgroundColor: '#e00051' }}
+                style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
               >
                 +
               </button>
@@ -310,7 +315,7 @@ const ProductComponent = () => {
             <button
               className="text-white bg-red-500 rounded-full w-10 h-10 flex items-center justify-center"
               onClick={() => handleAddToCart(selectedProduct)}
-              style={{ backgroundColor: '#e00051' }}
+              style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
             >
               +
             </button>
@@ -348,20 +353,21 @@ const ProductComponent = () => {
                         <button
                           className="text-white rounded-full w-8 h-8 flex items-center justify-center mr-0"
                           onClick={() => handleRemoveFromCart(product)}
-                          style={{ backgroundColor: '#e00051' }}
+                          style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
                         >
                           -
                         </button>
                       )}
                       {product.quantity > 0 && (
-                        <span className="text-sm text-black bg-white text-center w-7 h-7 flex items-center justify-center rounded-full border border-b-gray-500">
+                        <span className="text-sm text-black bg-white text-center w-7 h-7 flex items-center justify-center rounded-full border border-b-gray-500"
+                        style={{ fontSize: '20px', lineHeight: '24px', padding: '0'}}>
                           {product.quantity}
                         </span>
                       )}
                       <button
                         className="text-white rounded-full w-8 h-8 flex items-center justify-center ml-0"
                         onClick={() => handleAddToCart(product)}
-                        style={{ backgroundColor: '#e00051' }}
+                        style={{ backgroundColor: '#e00051', fontSize: '24px', lineHeight: '24px', padding: '0'}}
                       >
                         +
                       </button>

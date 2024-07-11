@@ -62,7 +62,7 @@ const Start = () => {
           placeholder={language === 'English' ? 'Your Name*' : '您的名字*'}
           value={name}
           onChange={handleNameChange}
-          className="border border-gray-300   rounded-3xl p-2 mb-6 w-full text-lg" style={{backgroundColor : "#e5e7eb"}}
+          className="border border-gray-300   rounded-3xl p-2 mb-6 w-full text-lg" style={{backgroundColor : "#e5e7eb", borderColor:"#e5e7eb" , outline: "none"}}
         />
         <button
           onClick={handleSubmit}
